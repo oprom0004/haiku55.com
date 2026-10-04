@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://haiku55.com/sitemap.xml
 Sitemap: https://haiku55.com/sitemap-index.xml
