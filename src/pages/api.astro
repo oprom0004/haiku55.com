@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'Claude Haiku 5.5 API Reference – Python, TypeScript & Prompt Caching SDK Guide';
+const pageDescription = 'Connect Python and TypeScript to Claude Haiku 5.5. Full guide covering Anthropic Messages API, streaming responses, tool calling, and prompt caching.';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Breadcrumbs -->
+    <nav class="font-mono text-xs text-haiku-muted mb-6 flex items-center gap-2">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-haiku-amber">API Integration</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-3xl mb-12 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-haiku-amber/15 border border-haiku-amber/30 text-haiku-amber text-xs font-mono font-bold uppercase tracking-wider">
+        <span>Anthropic Messages API</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black font-mono text-white tracking-tight uppercase">
+        Haiku 5.5 API &amp; SDK Quickstart
+      </h1>
+      <p class="text-stone-300 text-sm sm:text-base font-sans leading-relaxed">
+        Integrate Claude Haiku 5.5 using official Anthropic client libraries. Take advantage of streaming, structured tool use, and 90% prompt caching discounts:
+      </p>
+    </div>
+
+    <!-- API Config Details -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 font-mono text-xs">
+      <div class="p-4 rounded-2xl bg-haiku-card border border-haiku-border">
+        <span class="text-haiku-muted text-[10px] uppercase block mb-1">Model Identifier</span>
+        <code class="text-haiku-amber text-sm font-bold block">claude-5-5-haiku-latest</code>
+        <span class="text-stone-400 text-[11px] mt-1 block">Alias pointing to latest production build</span>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-haiku-card border border-haiku-border">
+        <span class="text-haiku-muted text-[10px] uppercase block mb-1">Max Output Tokens</span>
+        <code class="text-haiku-emerald text-sm font-bold block">8,192 Tokens</code>
+        <span class="text-stone-400 text-[11px] mt-1 block">Context window: 200,000 tokens</span>
+      </div>
+    </div>
+
+    <!-- Code Examples Stack -->
+    <div class="space-y-10">
+      
+      <!-- Python SDK -->
+      <section id="python" class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h2 class="font-mono font-bold text-white text-lg">1. Python SDK Streaming Example</h2>
+          <span class="text-xs font-mono text-haiku-muted">pip install anthropic</span>
+        </div>
+        <pre is:raw class="p-5 rounded-2xl bg-haiku-card border border-haiku-border text-stone-200 font-mono text-xs overflow-x-auto leading-relaxed select-all"><code>import anthropic
+
+client = anthropic.Anthropic()
+
+with client.messages.stream(
+    model="claude-5-5-haiku-latest",
+    max_tokens=1024,
+    temperature=0.7,
+    system="You are an expert low-latency AI coding assistant.",
+    messages=[
+        {"role": "user", "content": "Write an asynchronous token bucket rate limiter in Python."}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)</code></pre>
+      </section>
+
+      <!-- TypeScript SDK with Prompt Caching -->
+      <section id="typescript" class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h2 class="font-mono font-bold text-white text-lg">2. TypeScript with Prompt Caching (90% Discount)</h2>
+          <span class="text-xs font-mono text-haiku-muted">npm install @anthropic-ai/sdk</span>
+        </div>
+        <pre is:raw class="p-5 rounded-2xl bg-haiku-card border border-haiku-border text-stone-200 font-mono text-xs overflow-x-auto leading-relaxed select-all"><code>import Anthropic from '@anthropic-ai/sdk';
+
+const anthropic = new Anthropic();
+
+async function main() {
+  const message = await anthropic.messages.create({
+    model: 'claude-5-5-haiku-latest',
+    max_tokens: 1024,
+    system: [
+      {
+        type: 'text',
+        text: 'Massive 50,000-word product documentation text here...',
+        cache_control: { type: 'ephemeral' } // 90% discount on cache read!
+      }
+    ],
+    messages: [
+      { role: 'user', content: 'What is the return policy outlined in section 4?' }
+    ]
+  });
+
+  console.log(message.content[0].text);
+}
+
+main();</code></pre>
+      </section>
+
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="mt-12 flex justify-between items-center pt-6 border-t border-haiku-border text-xs font-mono">
+      <a href="/benchmarks/" class="text-haiku-muted hover:text-white transition-colors">
+        ← Benchmark Matrix
+      </a>
+      <a href="/" class="text-haiku-amber hover:underline">
+        Back to Home &amp; Calculator →
+      </a>
+    </div>
+
+  </div>
+</Layout>

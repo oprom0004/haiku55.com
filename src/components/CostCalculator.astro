@@ -1,0 +1,235 @@
+---
+// Interactive Token Cost Calculator
+---
+
+<div id="calculator" class="rounded-3xl bg-haiku-card border border-haiku-border p-6 sm:p-10 shadow-2xl space-y-8 backdrop-blur-md">
+  
+  <div class="flex flex-wrap items-start justify-between gap-4 border-b border-haiku-border/80 pb-6">
+    <div>
+      <span class="text-xs font-mono uppercase tracking-widest text-haiku-amber font-bold block mb-1">Interactive Simulation Tool</span>
+      <h3 class="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight uppercase">
+        Real-Time API Cost Calculator
+      </h3>
+      <p class="text-xs sm:text-sm font-sans text-haiku-muted mt-1">
+        Estimate your monthly cloud LLM expenses and see how much you save using Claude Haiku 5.5:
+      </p>
+    </div>
+    <div class="px-3 py-1.5 rounded-xl bg-haiku-void border border-haiku-border text-xs font-mono text-haiku-amber">
+      <span>⚡ Live Dynamic Recalculation</span>
+    </div>
+  </div>
+
+  <!-- Sliders Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+    <!-- Input Tokens Slider -->
+    <div class="space-y-3 p-5 rounded-2xl bg-haiku-void border border-haiku-border">
+      <div class="flex items-center justify-between font-mono text-xs">
+        <label for="inputTokens" class="font-bold text-white uppercase">Monthly Input Tokens:</label>
+        <span id="inputTokensDisplay" class="text-haiku-amber font-black text-sm">25,000,000</span>
+      </div>
+      <input
+        type="range"
+        id="inputTokens"
+        min="1"
+        max="200"
+        value="25"
+        step="1"
+        class="w-full h-2 bg-stone-800 rounded-lg appearance-none cursor-pointer accent-haiku-amber"
+      />
+      <div class="flex justify-between text-[10px] font-mono text-stone-500">
+        <span>1M Tokens</span>
+        <span>50M</span>
+        <span>100M</span>
+        <span>200M Tokens</span>
+      </div>
+    </div>
+
+    <!-- Output Tokens Slider -->
+    <div class="space-y-3 p-5 rounded-2xl bg-haiku-void border border-haiku-border">
+      <div class="flex items-center justify-between font-mono text-xs">
+        <label for="outputTokens" class="font-bold text-white uppercase">Monthly Output Tokens:</label>
+        <span id="outputTokensDisplay" class="text-haiku-coral font-black text-sm">5,000,000</span>
+      </div>
+      <input
+        type="range"
+        id="outputTokens"
+        min="0.5"
+        max="50"
+        value="5"
+        step="0.5"
+        class="w-full h-2 bg-stone-800 rounded-lg appearance-none cursor-pointer accent-haiku-coral"
+      />
+      <div class="flex justify-between text-[10px] font-mono text-stone-500">
+        <span>500K</span>
+        <span>10M</span>
+        <span>25M</span>
+        <span>50M Tokens</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Prompt Caching Toggle -->
+  <div class="p-4 rounded-xl bg-haiku-void/60 border border-haiku-border flex items-center justify-between text-xs font-mono">
+    <div class="flex items-center gap-3">
+      <input type="checkbox" id="promptCachingToggle" checked class="w-4 h-4 rounded accent-haiku-amber cursor-pointer" />
+      <label for="promptCachingToggle" class="cursor-pointer text-slate-200">
+        <strong class="text-white block">Enable Anthropic Prompt Caching (50% cache hit rate)</strong>
+        <span class="text-stone-400 text-[11px]">Saves up to 90% on cached system prompts and repetitive contexts.</span>
+      </label>
+    </div>
+    <span class="hidden sm:inline-block px-2 py-0.5 rounded bg-haiku-emerald/15 text-haiku-emerald text-[11px] font-bold">
+      90% Cache Discount
+    </span>
+  </div>
+
+  <!-- Cost Results Comparison Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+    
+    <!-- Haiku 5.5 Card -->
+    <div class="p-5 rounded-2xl bg-gradient-to-b from-haiku-void to-haiku-card border-2 border-haiku-amber/80 shadow-glow-amber relative flex flex-col justify-between">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-haiku-amber text-black font-mono font-black text-[10px] uppercase tracking-wider">
+        Best Price / Perf
+      </div>
+      <div class="space-y-1">
+        <span class="text-[10px] font-mono uppercase text-haiku-amber font-bold block">Claude Haiku 5.5</span>
+        <div class="font-mono font-black text-3xl text-white">
+          $<span id="haikuCost">9.38</span>
+        </div>
+        <span class="text-[10px] text-stone-400 font-mono block">Estimated / month</span>
+      </div>
+      <div class="mt-4 pt-3 border-t border-haiku-border text-[11px] font-mono text-haiku-emerald">
+        ⚡ 145 tok/s generation
+      </div>
+    </div>
+
+    <!-- Claude Sonnet 5.5 Card -->
+    <div class="p-5 rounded-2xl bg-haiku-void border border-haiku-border flex flex-col justify-between">
+      <div class="space-y-1">
+        <span class="text-[10px] font-mono uppercase text-stone-400 font-bold block">Claude Sonnet 5.5</span>
+        <div class="font-mono font-black text-2xl text-stone-200">
+          $<span id="sonnetCost">112.50</span>
+        </div>
+        <span class="text-[10px] text-stone-500 font-mono block">Frontier reasoning</span>
+      </div>
+      <div class="mt-4 pt-3 border-t border-haiku-border text-[11px] font-mono text-stone-400">
+        72 tok/s generation
+      </div>
+    </div>
+
+    <!-- GPT-4o-mini Card -->
+    <div class="p-5 rounded-2xl bg-haiku-void border border-haiku-border flex flex-col justify-between">
+      <div class="space-y-1">
+        <span class="text-[10px] font-mono uppercase text-stone-400 font-bold block">GPT-4o-mini</span>
+        <div class="font-mono font-black text-2xl text-stone-200">
+          $<span id="gptCost">6.75</span>
+        </div>
+        <span class="text-[10px] text-stone-500 font-mono block">Commodity chat</span>
+      </div>
+      <div class="mt-4 pt-3 border-t border-haiku-border text-[11px] font-mono text-stone-400">
+        110 tok/s generation
+      </div>
+    </div>
+
+    <!-- Gemini 2.5 Flash Card -->
+    <div class="p-5 rounded-2xl bg-haiku-void border border-haiku-border flex flex-col justify-between">
+      <div class="space-y-1">
+        <span class="text-[10px] font-mono uppercase text-stone-400 font-bold block">Gemini 2.5 Flash</span>
+        <div class="font-mono font-black text-2xl text-stone-200">
+          $<span id="geminiCost">3.38</span>
+        </div>
+        <span class="text-[10px] text-stone-500 font-mono block">Multimodal video/audio</span>
+      </div>
+      <div class="mt-4 pt-3 border-t border-haiku-border text-[11px] font-mono text-stone-400">
+        160 tok/s generation
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Savings Summary Callout -->
+  <div class="p-4 rounded-xl bg-haiku-amber/10 border border-haiku-amber/30 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
+    <div class="flex items-center gap-2">
+      <span class="text-lg">💡</span>
+      <span class="text-stone-200">
+        Switching from Sonnet 5.5 to Haiku 5.5 saves you <strong class="text-haiku-amber" id="savingsDollars">$103.12 / month</strong> (<span id="savingsPercent">91.7%</span> cost reduction).
+      </span>
+    </div>
+    <a href="/pricing/" class="text-haiku-amber hover:underline font-bold whitespace-nowrap">
+      View Pricing Tiers →
+    </a>
+  </div>
+
+</div>
+
+<!-- Client-side Calculation Script -->
+<script is:inline>
+  function updateCalculator() {
+    const inputSlider = document.getElementById('inputTokens');
+    const outputSlider = document.getElementById('outputTokens');
+    const cachingToggle = document.getElementById('promptCachingToggle');
+
+    if (!inputSlider || !outputSlider) return;
+
+    const inputM = parseFloat(inputSlider.value);
+    const outputM = parseFloat(outputSlider.value);
+    const useCaching = cachingToggle ? cachingToggle.checked : false;
+
+    // Update slider labels
+    const inputDisplay = document.getElementById('inputTokensDisplay');
+    const outputDisplay = document.getElementById('outputTokensDisplay');
+    if (inputDisplay) inputDisplay.textContent = (inputM * 1000000).toLocaleString();
+    if (outputDisplay) outputDisplay.textContent = (outputM * 1000000).toLocaleString();
+
+    // Rates per 1M tokens:
+    // Haiku 5.5: input $0.25, output $1.25, cached $0.025
+    // Sonnet 5.5: input $3.00, output $15.00, cached $0.30
+    // GPT-4o-mini: input $0.15, output $0.60
+    // Gemini 2.5 Flash: input $0.075, output $0.30
+
+    let haikuInputCost = inputM * 0.25;
+    let sonnetInputCost = inputM * 3.00;
+
+    if (useCaching) {
+      // 50% regular, 50% cached
+      haikuInputCost = (inputM * 0.5 * 0.25) + (inputM * 0.5 * 0.025);
+      sonnetInputCost = (inputM * 0.5 * 3.00) + (inputM * 0.5 * 0.30);
+    }
+
+    const haikuTotal = haikuInputCost + (outputM * 1.25);
+    const sonnetTotal = sonnetInputCost + (outputM * 15.00);
+    const gptTotal = (inputM * 0.15) + (outputM * 0.60);
+    const geminiTotal = (inputM * 0.075) + (outputM * 0.30);
+
+    const haikuEl = document.getElementById('haikuCost');
+    const sonnetEl = document.getElementById('sonnetCost');
+    const gptEl = document.getElementById('gptCost');
+    const geminiEl = document.getElementById('geminiCost');
+
+    if (haikuEl) haikuEl.textContent = haikuTotal.toFixed(2);
+    if (sonnetEl) sonnetEl.textContent = sonnetTotal.toFixed(2);
+    if (gptEl) gptEl.textContent = gptTotal.toFixed(2);
+    if (geminiEl) geminiEl.textContent = geminiTotal.toFixed(2);
+
+    const savingsDollars = sonnetTotal - haikuTotal;
+    const savingsPercent = sonnetTotal > 0 ? ((savingsDollars / sonnetTotal) * 100).toFixed(1) : 0;
+
+    const savingsDollarsEl = document.getElementById('savingsDollars');
+    const savingsPercentEl = document.getElementById('savingsPercent');
+    if (savingsDollarsEl) savingsDollarsEl.textContent = '$' + savingsDollars.toFixed(2) + ' / month';
+    if (savingsPercentEl) savingsPercentEl.textContent = savingsPercent + '%';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputSlider = document.getElementById('inputTokens');
+    const outputSlider = document.getElementById('outputTokens');
+    const cachingToggle = document.getElementById('promptCachingToggle');
+
+    if (inputSlider) inputSlider.addEventListener('input', updateCalculator);
+    if (outputSlider) outputSlider.addEventListener('input', updateCalculator);
+    if (cachingToggle) cachingToggle.addEventListener('change', updateCalculator);
+
+    updateCalculator();
+  });
+</script>

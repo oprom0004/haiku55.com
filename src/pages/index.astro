@@ -1,0 +1,253 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CostCalculator from '../components/CostCalculator.astro';
+import { MODELS_COMPARISON } from '../data/models';
+import { HAIKU_FAQS, haikuFaqSchema } from '../data/faqs';
+
+const pageTitle = 'Claude Haiku 5.5 – Pricing, Benchmarks, Speed & Release Date Tracker (2026)';
+const pageDescription = 'Track Anthropic\'s Claude Haiku 5.5. Explore projected token pricing ($0.25/$1.25 per 1M), interactive cost calculator, benchmarks vs GPT-4o-mini & Gemini Flash, and API setup.';
+
+const aiModelSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Claude Haiku 5.5',
+  alternateName: ['Haiku 5.5', 'Claude 5.5 Haiku'],
+  applicationCategory: 'ArtificialIntelligenceApplication',
+  operatingSystem: 'Cloud API, Python, TypeScript, REST',
+  offers: {
+    '@type': 'Offer',
+    price: '0.25',
+    priceCurrency: 'USD',
+    description: 'Estimated $0.25 per million input tokens',
+  },
+  author: {
+    '@type': 'Organization',
+    name: 'Anthropic',
+    url: 'https://www.anthropic.com',
+  },
+  description: pageDescription,
+  url: 'https://haiku55.com/',
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={[aiModelSchema, haikuFaqSchema]}>
+  
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden border-b border-haiku-border pt-12 pb-20 sm:pt-20 sm:pb-28">
+    
+    <!-- Warm Ambient Light -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-haiku-amber/12 blur-[130px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-1/3 right-10 w-[400px] h-[250px] bg-haiku-coral/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-6">
+        
+        <!-- Live Tag -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-haiku-amber/10 border border-haiku-amber/30 text-haiku-amber text-xs font-mono font-bold tracking-wider uppercase">
+          <span class="w-2 h-2 rounded-full bg-haiku-amber animate-ping"></span>
+          <span>Official Anthropic Roadmap • Release Radar</span>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white font-mono tracking-tight leading-none uppercase">
+          CLAUDE <span class="text-transparent bg-clip-text bg-gradient-to-r from-haiku-amber via-orange-400 to-amber-600">HAIKU 5.5</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="text-base sm:text-lg text-stone-300 leading-relaxed font-sans max-w-2xl">
+          The ultimate developer intelligence hub for Anthropic's next-generation lightweight model. Discover <strong class="text-white">projected API pricing ($0.25/$1.25 per 1M)</strong>, 140+ tok/s generation velocity, and interactive real-time cost modeling.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a
+            href="#calculator"
+            class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-haiku-amber to-amber-600 text-black font-mono font-bold text-xs uppercase tracking-wider shadow-glow-amber hover:brightness-110 transition-all flex items-center gap-2"
+          >
+            <span>📊 Open Cost Calculator</span>
+          </a>
+          <a
+            href="/benchmarks/"
+            class="px-6 py-3.5 rounded-xl bg-haiku-card hover:bg-stone-800 border border-haiku-border text-white font-mono font-bold text-xs uppercase tracking-wider hover:border-haiku-amber transition-all flex items-center gap-2"
+          >
+            <span>📈 Benchmark Matrix</span>
+          </a>
+          <a
+            href="/pricing/"
+            class="px-6 py-3.5 rounded-xl bg-haiku-card hover:bg-stone-800 border border-haiku-border text-stone-300 hover:text-white font-mono font-bold text-xs uppercase tracking-wider hover:border-haiku-amber transition-all"
+          >
+            <span>💵 Pricing Tiers</span>
+          </a>
+        </div>
+
+        <!-- Key Highlights Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-haiku-border/80 text-xs font-mono">
+          <div class="p-3 rounded-xl bg-haiku-card/70 border border-haiku-border">
+            <span class="text-haiku-muted block text-[10px] uppercase">Input Pricing</span>
+            <span class="text-white text-base font-bold">$0.25 / 1M</span>
+          </div>
+          <div class="p-3 rounded-xl bg-haiku-card/70 border border-haiku-border">
+            <span class="text-haiku-muted block text-[10px] uppercase">Output Pricing</span>
+            <span class="text-haiku-amber text-base font-bold">$1.25 / 1M</span>
+          </div>
+          <div class="p-3 rounded-xl bg-haiku-card/70 border border-haiku-border">
+            <span class="text-haiku-muted block text-[10px] uppercase">Peak Velocity</span>
+            <span class="text-white text-base font-bold">145 tok/s</span>
+          </div>
+          <div class="p-3 rounded-xl bg-haiku-card/70 border border-haiku-border">
+            <span class="text-haiku-muted block text-[10px] uppercase">Prompt Cache</span>
+            <span class="text-haiku-emerald text-base font-bold">-90% Discount</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Cost Calculator Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <CostCalculator />
+  </section>
+
+  <!-- Release Timeline & Family Lineage -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-haiku-border">
+    <div class="max-w-3xl mb-12 space-y-2">
+      <span class="text-xs font-mono uppercase tracking-widest text-haiku-amber font-bold block">Model Lineage</span>
+      <h2 class="text-3xl sm:text-4xl font-black font-mono text-white tracking-tight uppercase">
+        The Claude 5.5 Generation Roadmap
+      </h2>
+      <p class="text-stone-400 text-sm font-sans">
+        Anthropic restructured its rollout rhythm in late 2026, launching the flagship frontier models first, followed by the high-velocity lightweight tier:
+      </p>
+    </div>
+
+    <!-- Timeline Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Opus 5.5 -->
+      <div class="p-6 rounded-2xl bg-haiku-card border border-haiku-border space-y-3">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="px-2 py-0.5 rounded bg-stone-800 text-stone-300 border border-stone-700">September 22, 2026</span>
+          <span class="text-haiku-emerald font-bold">✓ Live</span>
+        </div>
+        <h3 class="font-mono font-bold text-white text-xl">Claude Opus 5.5</h3>
+        <p class="text-xs text-stone-300 font-sans leading-relaxed">
+          The deepest reasoning and creative writing model in Anthropic history. Engineered for complex academic research, multi-layered prose, and mathematical theorem proof.
+        </p>
+      </div>
+
+      <!-- Sonnet 5.5 -->
+      <div class="p-6 rounded-2xl bg-haiku-card border border-haiku-border space-y-3">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="px-2 py-0.5 rounded bg-stone-800 text-stone-300 border border-stone-700">September 28, 2026</span>
+          <span class="text-haiku-emerald font-bold">✓ Live</span>
+        </div>
+        <h3 class="font-mono font-bold text-white text-xl">Claude Sonnet 5.5</h3>
+        <p class="text-xs text-stone-300 font-sans leading-relaxed">
+          The software engineering gold standard. Dominates SWE-bench with advanced agentic tool use and automated pull request resolution capabilities.
+        </p>
+      </div>
+
+      <!-- Haiku 5.5 -->
+      <div class="p-6 rounded-2xl bg-haiku-card border-2 border-haiku-amber/80 shadow-glow-amber space-y-3 relative">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="px-2 py-0.5 rounded bg-haiku-amber/20 text-haiku-amber border border-haiku-amber/40">October 2026</span>
+          <span class="text-haiku-amber font-bold animate-pulse">● Imminent Launch</span>
+        </div>
+        <h3 class="font-mono font-bold text-white text-xl">Claude Haiku 5.5</h3>
+        <p class="text-xs text-stone-300 font-sans leading-relaxed">
+          Near-Sonnet coding proficiency packaged into sub-second generation speeds. Built for high-volume API pipelines, live IDE completions, and high-concurrency production apps.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Competitive Comparison Table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-haiku-border">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-haiku-amber font-bold block mb-1">Competitive Landscape</span>
+        <h2 class="text-3xl sm:text-4xl font-black font-mono text-white tracking-tight uppercase">
+          Lightweight Model Comparison
+        </h2>
+      </div>
+      <a href="/benchmarks/" class="text-xs font-mono text-haiku-amber hover:underline font-bold">
+        Detailed Benchmarks Report →
+      </a>
+    </div>
+
+    <div class="overflow-x-auto rounded-2xl border border-haiku-border bg-haiku-card/90 shadow-xl">
+      <table class="w-full text-left font-mono text-xs">
+        <thead class="bg-haiku-void/80 border-b border-haiku-border text-haiku-muted uppercase text-[10px]">
+          <tr>
+            <th class="p-4">Model Name</th>
+            <th class="p-4">Input / Output (per 1M)</th>
+            <th class="p-4">Context Window</th>
+            <th class="p-4">Speed</th>
+            <th class="p-4">Coding Score (HumanEval)</th>
+            <th class="p-4">Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-haiku-border/60">
+          {MODELS_COMPARISON.map((m) => (
+            <tr class={m.name.includes('Haiku 5.5') ? 'bg-haiku-amber/5 font-semibold text-white' : 'text-stone-300'}>
+              <td class="p-4 flex items-center gap-2">
+                {m.name.includes('Haiku 5.5') && <span class="text-haiku-amber">★</span>}
+                <div>
+                  <span class="block">{m.name}</span>
+                  <span class="text-[10px] text-stone-500 font-sans">{m.provider}</span>
+                </div>
+              </td>
+              <td class="p-4">
+                <span class="text-white">${m.inputPerM.toFixed(2)}</span>
+                <span class="text-stone-500"> / </span>
+                <span class="text-haiku-amber">${m.outputPerM.toFixed(2)}</span>
+              </td>
+              <td class="p-4 text-stone-400">{m.contextWindow}</td>
+              <td class="p-4">
+                <span class="px-2 py-0.5 rounded bg-stone-800 text-stone-200 border border-stone-700">
+                  {m.speedTokPerSec} tok/s
+                </span>
+              </td>
+              <td class="p-4 text-haiku-emerald font-bold">{m.codingBenchmark}%</td>
+              <td class="p-4">
+                <span class={m.status.includes('Pre-Release') ? 'text-haiku-amber font-bold' : 'text-stone-400'}>
+                  {m.status}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-haiku-border">
+    <div class="text-center mb-12 space-y-2">
+      <span class="text-xs font-mono uppercase tracking-widest text-haiku-amber font-bold block">Developer FAQ</span>
+      <h2 class="text-3xl sm:text-4xl font-black font-mono text-white tracking-tight uppercase">
+        Frequently Asked Questions
+      </h2>
+      <p class="text-stone-400 text-sm font-sans">
+        Critical specs, token economics, and integration questions regarding Claude Haiku 5.5.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {HAIKU_FAQS.map((faq) => (
+        <details class="group rounded-2xl bg-haiku-card/80 border border-haiku-border p-5 transition-all open:border-haiku-amber/50">
+          <summary class="flex items-center justify-between cursor-pointer list-none font-mono font-bold text-white text-sm sm:text-base">
+            <span>{faq.question}</span>
+            <span class="ml-4 text-haiku-amber text-xl group-open:rotate-45 transition-transform duration-200">+</span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-haiku-border/60 text-stone-300 text-xs sm:text-sm font-sans leading-relaxed">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+</Layout>

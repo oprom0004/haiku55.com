@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CostCalculator from '../components/CostCalculator.astro';
+
+const pageTitle = 'Claude Haiku 5.5 Pricing Guide – Token Rates, Prompt Caching & Batch API Discounts';
+const pageDescription = 'Complete breakdown of Claude Haiku 5.5 API pricing. Learn how prompt caching reduces input costs to $0.025/M tokens and calculate batch processing savings.';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Breadcrumbs -->
+    <nav class="font-mono text-xs text-haiku-muted mb-6 flex items-center gap-2">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-haiku-amber">Pricing Guide</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-3xl mb-12 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-haiku-amber/15 border border-haiku-amber/30 text-haiku-amber text-xs font-mono font-bold uppercase tracking-wider">
+        <span>Token Economics &amp; Rate Cards</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black font-mono text-white tracking-tight uppercase">
+        Claude Haiku 5.5 Pricing
+      </h1>
+      <p class="text-stone-300 text-sm sm:text-base font-sans leading-relaxed">
+        Engineered for high-volume enterprise pipelines and independent developers. Discover standard token tariffs, prompt caching discounts, and volume batch processing rates:
+      </p>
+    </div>
+
+    <!-- Rate Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 font-mono">
+      
+      <!-- Standard Real-Time API -->
+      <div class="p-6 rounded-3xl bg-haiku-card border border-haiku-border space-y-4">
+        <span class="text-xs text-haiku-muted uppercase block">Tier 01</span>
+        <h2 class="text-xl font-bold text-white">Standard Real-Time</h2>
+        <div class="space-y-2 text-xs">
+          <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+            <span class="text-stone-400 block text-[10px] uppercase">Input Tokens</span>
+            <strong class="text-white text-base font-bold">$0.25</strong>
+            <span class="text-[11px] text-stone-500"> / Million Tokens</span>
+          </div>
+          <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+            <span class="text-stone-400 block text-[10px] uppercase">Output Tokens</span>
+            <strong class="text-haiku-amber text-base font-bold">$1.25</strong>
+            <span class="text-[11px] text-stone-500"> / Million Tokens</span>
+          </div>
+        </div>
+        <p class="text-xs text-stone-400 font-sans leading-relaxed">
+          Standard low-latency endpoints for interactive chat, IDE code completion, and real-time agent workflows.
+        </p>
+      </div>
+
+      <!-- Prompt Caching -->
+      <div id="prompt-caching" class="p-6 rounded-3xl bg-haiku-card border-2 border-haiku-emerald/50 shadow-glow-amber space-y-4 relative">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-haiku-emerald font-bold uppercase">Tier 02 • Recommended</span>
+          <span class="px-2 py-0.5 rounded bg-haiku-emerald/20 text-haiku-emerald text-[10px] font-bold">90% OFF</span>
+        </div>
+        <h2 class="text-xl font-bold text-white">Prompt Caching</h2>
+        <div class="space-y-2 text-xs">
+          <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+            <span class="text-stone-400 block text-[10px] uppercase">Cached Input Reads</span>
+            <strong class="text-haiku-emerald text-base font-bold">$0.025</strong>
+            <span class="text-[11px] text-stone-500"> / Million Tokens</span>
+          </div>
+          <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+            <span class="text-stone-400 block text-[10px] uppercase">Cache Writes</span>
+            <strong class="text-white text-base font-bold">$0.30</strong>
+            <span class="text-[11px] text-stone-500"> / Million Tokens</span>
+          </div>
+        </div>
+        <p class="text-xs text-stone-400 font-sans leading-relaxed">
+          Cache massive system prompts, API schemas, and codebase contexts for 5 minutes. Massive cost reduction for repeated queries.
+        </p>
+      </div>
+
+      <!-- Batch Processing -->
+      <div class="p-6 rounded-3xl bg-haiku-card border border-haiku-border space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-haiku-muted uppercase">Tier 03</span>
+          <span class="px-2 py-0.5 rounded bg-stone-800 text-stone-300 text-[10px] font-bold">50% OFF</span>
+        </div>
+        <h2 class="text-xl font-bold text-white">Message Batches</h2>
+        <div class="space-y-2 text-xs">
+          <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+            <span class="text-stone-400 block text-[10px] uppercase">Batch Input Tokens</span>
+            <strong class="text-white text-base font-bold">$0.125</strong>
+            <span class="text-[11px] text-stone-500"> / Million Tokens</span>
+          </div>
+          <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+            <span class="text-stone-400 block text-[10px] uppercase">Batch Output Tokens</span>
+            <strong class="text-haiku-amber text-base font-bold">$0.625</strong>
+            <span class="text-[11px] text-stone-500"> / Million Tokens</span>
+          </div>
+        </div>
+        <p class="text-xs text-stone-400 font-sans leading-relaxed">
+          Asynchronous batch jobs completed within 24 hours. Ideal for bulk classification, offline document indexing, and synthetic dataset generation.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Interactive Calculator Embed -->
+    <div class="mb-16">
+      <CostCalculator />
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="flex justify-between items-center pt-6 border-t border-haiku-border text-xs font-mono">
+      <a href="/" class="text-haiku-muted hover:text-white transition-colors">
+        ← Back to Overview
+      </a>
+      <a href="/benchmarks/" class="text-haiku-amber hover:underline">
+        Detailed Benchmarks Report →
+      </a>
+    </div>
+
+  </div>
+</Layout>

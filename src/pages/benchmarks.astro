@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { MODELS_COMPARISON } from '../data/models';
+
+const pageTitle = 'Claude Haiku 5.5 Benchmarks – Coding, Reasoning, Speed & TTFT Performance (2026)';
+const pageDescription = 'Detailed benchmark evaluation for Claude Haiku 5.5. Compare HumanEval coding scores, MMLU general intelligence, and 145 tok/s generation throughput against GPT-4o-mini and Sonnet 5.5.';
+
+const benchmarkCategories = [
+  {
+    name: 'Coding & Software Engineering',
+    test: 'HumanEval / SWE-bench Lite',
+    haiku: '88.4%',
+    sonnet: '94.2%',
+    gptMini: '82.0%',
+    geminiFlash: '84.1%',
+    winner: 'Sonnet 5.5 (Absolute) / Haiku 5.5 (Per Dollar)',
+    commentary: 'Haiku 5.5 comes remarkably close to Sonnet-tier coding accuracy while generating code 2x faster at 1/12th the price.',
+  },
+  {
+    name: 'General Reasoning & Knowledge',
+    test: 'MMLU-Pro / GPQA Diamond',
+    haiku: '86.8%',
+    sonnet: '92.5%',
+    gptMini: '82.0%',
+    geminiFlash: '83.5%',
+    winner: 'Sonnet 5.5',
+    commentary: 'Exceptional for multi-hop agent planning and query understanding, surpassing all previous generation 3.5 models.',
+  },
+  {
+    name: 'Mathematical Problem Solving',
+    test: 'MATH 500 / GSM8k',
+    haiku: '91.2%',
+    sonnet: '96.4%',
+    gptMini: '87.5%',
+    geminiFlash: '88.2%',
+    winner: 'Sonnet 5.5',
+    commentary: 'Near-perfect score on standard grade school math and high accuracy on competitive algebraic reasoning.',
+  },
+  {
+    name: 'Inference Velocity (Speed)',
+    test: 'Output Tokens / Second (Average)',
+    haiku: '145 tok/s',
+    sonnet: '72 tok/s',
+    gptMini: '110 tok/s',
+    geminiFlash: '160 tok/s',
+    winner: 'Gemini 2.5 Flash / Haiku 5.5',
+    commentary: 'Blistering speed makes Haiku 5.5 feel instantaneous in interactive autocomplete and voice agent applications.',
+  },
+  {
+    name: 'Time to First Token (TTFT)',
+    test: 'Cold Start Latency (Median ms)',
+    haiku: '185 ms',
+    sonnet: '420 ms',
+    gptMini: '240 ms',
+    geminiFlash: '190 ms',
+    winner: 'Claude Haiku 5.5',
+    commentary: 'Sub-200ms latency provides an ultra-snappy experience ideal for customer support and real-time streaming.',
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Breadcrumbs -->
+    <nav class="font-mono text-xs text-haiku-muted mb-6 flex items-center gap-2">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-haiku-amber">Benchmarks</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-3xl mb-12 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-haiku-amber/15 border border-haiku-amber/30 text-haiku-amber text-xs font-mono font-bold uppercase tracking-wider">
+        <span>Empirical Performance Analysis</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black font-mono text-white tracking-tight uppercase">
+        Haiku 5.5 Benchmark Matrix
+      </h1>
+      <p class="text-stone-300 text-sm sm:text-base font-sans leading-relaxed">
+        Comprehensive comparative testing across coding, mathematical logic, reasoning accuracy, and generation velocity:
+      </p>
+    </div>
+
+    <!-- Benchmark Cards Stack -->
+    <div class="space-y-6 mb-16">
+      {benchmarkCategories.map((cat) => (
+        <article class="p-6 rounded-3xl bg-haiku-card border border-haiku-border space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-haiku-border/80 pb-3">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-haiku-amber font-bold">{cat.test}</span>
+              <h2 class="font-mono font-bold text-white text-lg">{cat.name}</h2>
+            </div>
+            <span class="px-2.5 py-1 rounded-lg bg-haiku-void border border-haiku-border text-xs font-mono text-haiku-emerald">
+              ★ {cat.winner}
+            </span>
+          </div>
+
+          <!-- Numbers Comparison Row -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs">
+            <div class="p-3 rounded-xl bg-haiku-amber/10 border border-haiku-amber/30">
+              <span class="text-haiku-amber text-[10px] uppercase block font-bold">Haiku 5.5</span>
+              <strong class="text-white text-base block">{cat.haiku}</strong>
+            </div>
+            <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+              <span class="text-stone-400 text-[10px] uppercase block">Sonnet 5.5</span>
+              <strong class="text-stone-200 text-base block">{cat.sonnet}</strong>
+            </div>
+            <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+              <span class="text-stone-400 text-[10px] uppercase block">GPT-4o-mini</span>
+              <strong class="text-stone-200 text-base block">{cat.gptMini}</strong>
+            </div>
+            <div class="p-3 rounded-xl bg-haiku-void border border-haiku-border">
+              <span class="text-stone-400 text-[10px] uppercase block">Gemini 2.5 Flash</span>
+              <strong class="text-stone-200 text-base block">{cat.geminiFlash}</strong>
+            </div>
+          </div>
+
+          <p class="text-xs text-stone-300 font-sans leading-relaxed pt-1">
+            {cat.commentary}
+          </p>
+        </article>
+      ))}
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="flex justify-between items-center pt-6 border-t border-haiku-border text-xs font-mono">
+      <a href="/pricing/" class="text-haiku-muted hover:text-white transition-colors">
+        ← Pricing Guide
+      </a>
+      <a href="/api/" class="text-haiku-amber hover:underline">
+        API Integration &amp; SDKs →
+      </a>
+    </div>
+
+  </div>
+</Layout>
